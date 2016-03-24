@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/build/intermediates/res/merged/debug/mipmap-xhdpi-v4/ic_launcher.png",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/src/main/res/mipmap-xhdpi/ic_launcher.png"
+    }
+]

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/build/intermediates/res/merged/debug/layout-land/fragment_new_game_difficulty.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/src/main/res/layouts/activity_new_game_fragments/layout-land/fragment_new_game_difficulty.xml"
+    },
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/build/intermediates/res/merged/debug/layout-land/fragment_new_game_difficulty.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/src/main/res/layouts/activity_new_game_fragments/layout-land/fragment_new_game_difficulty.xml"
+    }
+]

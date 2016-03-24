@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">DungeonExpedition</string>
+    <string name="action_settings">Settings</string>
+    <string name="gameTitle">Dungeon Expedition</string>
+    <string name="newGameLabel">New Game</string>
+    <string name="loadGameLabel">Load Game</string>
+    <string name="title_activity_new_game">NewGameActivity</string>
+    <string name="title_activity_load_save">LoadSaveActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+</resources>

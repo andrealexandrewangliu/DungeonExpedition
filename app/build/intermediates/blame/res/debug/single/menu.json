@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/build/intermediates/res/merged/debug/menu/menu_new_game.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/src/main/res/menu/menu_new_game.xml"
+    },
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/build/intermediates/res/merged/debug/menu/menu_main.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/src/main/res/menu/menu_main.xml"
+    },
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/build/intermediates/res/merged/debug/menu/menu_main.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonExpedition/app/src/main/res/menu/menu_main.xml"
+    },
+    {
+        "merged": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/build/intermediates/res/merged/debug/menu/menu_new_game.xml",
+        "source": "/Users/xmyx/AndroidStudioProjects/DungeonDivers/app/src/main/res/menu/menu_new_game.xml"
+    }
+]

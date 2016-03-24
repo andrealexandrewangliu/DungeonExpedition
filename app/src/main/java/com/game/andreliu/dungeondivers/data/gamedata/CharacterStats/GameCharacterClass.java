@@ -4,6 +4,7 @@ import android.telephony.CellSignalStrength;
 
 import com.game.andreliu.dungeondivers.common.Action;
 import com.game.andreliu.dungeondivers.common.Condition;
+import com.game.andreliu.dungeondivers.data.CurrentGameData;
 import com.game.andreliu.dungeondivers.data.gamedata.GamePersonCharacter;
 
 import java.util.ArrayList;
@@ -26,13 +27,14 @@ public class GameCharacterClass {
         TACTICIAN,
         LEADER,
         LORD,
-        CHIEFTAIN,
+        CHIEF,
         STRATEGIST,
         MASTERMIND,
         SUPREME_COMMANDER,
         MCADVENTURER,
         MCWARRIOR,
         HERO,
+        SLAYER,
         MCSKIRMISHER,
         SHARPSHOOTER,
         RANGER,
@@ -65,16 +67,14 @@ public class GameCharacterClass {
         HEXER,
         ACOLYTE,
         PALADIN,
-        INQUISITOR,
+        EXORCIST,
         PRIEST,
         APPRENTICE,
         ARTISAN,
-        BLACKSMITH,
-        CARPENTER,
-        TAILOR,
+        WEAPONSMITH,
+        ARMORER,
         SCHOLAR,
         ALCHEMIST,
-        JEWELER,
         ENCHANTER
     }
 
@@ -125,11 +125,14 @@ public class GameCharacterClass {
     }
 
     public boolean hasRequirement(GamePersonCharacter character){
-        return requirements.parseCondition(character);
+        if (requirements != null)
+            return requirements.parseCondition(character);
+        return true;
     }
 
     public void addBonus(GamePersonCharacter character){
-        bonus.action(character);
+        if (bonus != null)
+            bonus.action(character);
     }
 
     //public static GameCharacterClass getGameClass(int i){
@@ -150,8 +153,8 @@ public class GameCharacterClass {
 
             staticGameClassList.put(classIndex.TACTICIAN, new GameCharacterClass("Tactician")); //Main character Strategy Path
             staticGameClassList.put(classIndex.LEADER, new GameCharacterClass("Leader")); //Main character Strategy Buff Path
-            staticGameClassList.put(classIndex.LORD, new GameCharacterClass("Lord")); //Main character Strategy Aura Path
-            staticGameClassList.put(classIndex.CHIEFTAIN, new GameCharacterClass("Chieftain")); //Main character Strategy Debuff Path
+            staticGameClassList.put(classIndex.LORD, new GameCharacterClass("Lord")); //Main character Strategy defense Path
+            staticGameClassList.put(classIndex.CHIEF, new GameCharacterClass("Chief")); //Main character Strategy offense Path
             staticGameClassList.put(classIndex.STRATEGIST, new GameCharacterClass("Strategist")); //Main character Strategy Control Path
             staticGameClassList.put(classIndex.MASTERMIND, new GameCharacterClass("Mastermind")); //Main character Strategy Trap Path
             staticGameClassList.put(classIndex.SUPREME_COMMANDER, new GameCharacterClass("Supreme Commander")); //Main character Strategy Micro Path
@@ -160,7 +163,7 @@ public class GameCharacterClass {
             staticGameClassList.put(classIndex.MCADVENTURER, new GameCharacterClass("Adventurer")); //Main character Combatant Path
             staticGameClassList.put(classIndex.MCWARRIOR, new GameCharacterClass("Warrior")); //Main character close quarters Path
             staticGameClassList.put(classIndex.HERO, new GameCharacterClass("Hero")); //Main character melee magic path
-            staticGameClassList.put(classIndex.MCSKIRMISHER, new GameCharacterClass("Slayer")); //Main character melee damage path
+            staticGameClassList.put(classIndex.SLAYER, new GameCharacterClass("Slayer")); //Main character melee damage path
             staticGameClassList.put(classIndex.MCSKIRMISHER, new GameCharacterClass("Skirmisher")); //Main character rogue Path
             staticGameClassList.put(classIndex.SHARPSHOOTER, new GameCharacterClass("Sharpshooter")); //Main character sniper path
             staticGameClassList.put(classIndex.RANGER, new GameCharacterClass("Ranger")); //Main character fast shooter path
@@ -176,10 +179,10 @@ public class GameCharacterClass {
 
             staticGameClassList.get(classIndex.MCNOVICE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.TACTICIAN), staticGameClassList.get(classIndex.MCADVENTURER)});
             staticGameClassList.get(classIndex.TACTICIAN).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.LEADER), staticGameClassList.get(classIndex.STRATEGIST)});
-            staticGameClassList.get(classIndex.LEADER).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.LORD), staticGameClassList.get(classIndex.CHIEFTAIN)});
+            staticGameClassList.get(classIndex.LEADER).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.LORD), staticGameClassList.get(classIndex.CHIEF)});
             staticGameClassList.get(classIndex.STRATEGIST).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.MASTERMIND), staticGameClassList.get(classIndex.SUPREME_COMMANDER)});
             staticGameClassList.get(classIndex.MCADVENTURER).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.MCWARRIOR), staticGameClassList.get(classIndex.MCSKIRMISHER), staticGameClassList.get(classIndex.MCSCOUT), staticGameClassList.get(classIndex.MCMAGE), staticGameClassList.get(classIndex.MCACOLYTE)});
-            staticGameClassList.get(classIndex.MCWARRIOR).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.HERO), staticGameClassList.get(classIndex.MCSKIRMISHER)});
+            staticGameClassList.get(classIndex.MCWARRIOR).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.HERO), staticGameClassList.get(classIndex.SLAYER)});
             staticGameClassList.get(classIndex.MCSKIRMISHER).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.SHARPSHOOTER), staticGameClassList.get(classIndex.RANGER)});
             staticGameClassList.get(classIndex.MCSCOUT).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.SEEKER), staticGameClassList.get(classIndex.ASSASSIN)});
             staticGameClassList.get(classIndex.MCMAGE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.SAGE), staticGameClassList.get(classIndex.WARLOCK)});
@@ -206,17 +209,15 @@ public class GameCharacterClass {
             staticGameClassList.put(classIndex.HEXER, new GameCharacterClass("Hexer"));
             staticGameClassList.put(classIndex.ACOLYTE, new GameCharacterClass("Acolyte"));
             staticGameClassList.put(classIndex.PALADIN, new GameCharacterClass("Paladin"));
-            staticGameClassList.put(classIndex.INQUISITOR, new GameCharacterClass("Inquisitor"));
+            staticGameClassList.put(classIndex.EXORCIST, new GameCharacterClass("Exorcist"));
             staticGameClassList.put(classIndex.PRIEST, new GameCharacterClass("Priest"));
 
             staticGameClassList.put(classIndex.APPRENTICE, new GameCharacterClass("Apprentice"));
             staticGameClassList.put(classIndex.ARTISAN, new GameCharacterClass("Artisan"));
-            staticGameClassList.put(classIndex.BLACKSMITH, new GameCharacterClass("Blacksmith"));
-            staticGameClassList.put(classIndex.CARPENTER, new GameCharacterClass("Carpenter"));
-            staticGameClassList.put(classIndex.TAILOR, new GameCharacterClass("Tailor"));
+            staticGameClassList.put(classIndex.WEAPONSMITH, new GameCharacterClass("Blacksmith"));
+            staticGameClassList.put(classIndex.ARMORER, new GameCharacterClass("Tailor"));
             staticGameClassList.put(classIndex.SCHOLAR, new GameCharacterClass("Scholar"));
             staticGameClassList.put(classIndex.ALCHEMIST, new GameCharacterClass("Alchemist"));
-            staticGameClassList.put(classIndex.JEWELER, new GameCharacterClass("Jeweler"));
             staticGameClassList.put(classIndex.ENCHANTER, new GameCharacterClass("Enchanter"));
 
             staticGameClassList.get(classIndex.NOVICE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ADVENTURER), staticGameClassList.get(classIndex.APPRENTICE)});
@@ -225,11 +226,399 @@ public class GameCharacterClass {
             staticGameClassList.get(classIndex.SKIRMISHER).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.SNIPER), staticGameClassList.get(classIndex.HUNTER), staticGameClassList.get(classIndex.ARCHER)});
             staticGameClassList.get(classIndex.SCOUT).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.EXPLORER), staticGameClassList.get(classIndex.ROGUE), staticGameClassList.get(classIndex.BOUNTY_HUNTER)});
             staticGameClassList.get(classIndex.MAGE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ELEMENTALIST), staticGameClassList.get(classIndex.WIZARD), staticGameClassList.get(classIndex.SORCERER), staticGameClassList.get(classIndex.HEXER)});
-            staticGameClassList.get(classIndex.ACOLYTE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.PALADIN), staticGameClassList.get(classIndex.INQUISITOR), staticGameClassList.get(classIndex.PRIEST)});
+            staticGameClassList.get(classIndex.ACOLYTE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.PALADIN), staticGameClassList.get(classIndex.EXORCIST), staticGameClassList.get(classIndex.PRIEST)});
             staticGameClassList.get(classIndex.APPRENTICE).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ARTISAN), staticGameClassList.get(classIndex.SCHOLAR)});
-            staticGameClassList.get(classIndex.ARTISAN).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.BLACKSMITH), staticGameClassList.get(classIndex.CARPENTER), staticGameClassList.get(classIndex.TAILOR)});
-            staticGameClassList.get(classIndex.SCHOLAR).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ALCHEMIST), staticGameClassList.get(classIndex.JEWELER), staticGameClassList.get(classIndex.ENCHANTER)});
+            staticGameClassList.get(classIndex.ARTISAN).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.WEAPONSMITH), staticGameClassList.get(classIndex.ARMORER)});
+            staticGameClassList.get(classIndex.SCHOLAR).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ALCHEMIST), staticGameClassList.get(classIndex.ENCHANTER)});
 
+            initClassesRequirements();
         }
     }
+
+    private static void initClassesRequirements(){
+        Condition<GamePersonCharacter> temp;
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 5;
+            }
+        };
+
+        /** TIER 1 **/
+        staticGameClassList.get(classIndex.MCADVENTURER).setRequirements(temp);
+        staticGameClassList.get(classIndex.ADVENTURER).setRequirements(temp);
+        staticGameClassList.get(classIndex.TACTICIAN).setRequirements(temp);
+        staticGameClassList.get(classIndex.APPRENTICE).setRequirements(temp);
+
+        /** TIER 2 **/
+        staticGameClassList.get(classIndex.LEADER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getIntelligence() >= 7 && parameter.getBaseStats().getMind() >= 7;
+            }
+        });
+        staticGameClassList.get(classIndex.STRATEGIST).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getIntelligence() >= 10;
+            }
+        });
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getStrength() >= 10;
+            }
+        };
+        staticGameClassList.get(classIndex.MCWARRIOR).setRequirements(temp);
+        staticGameClassList.get(classIndex.WARRIOR).setRequirements(temp);
+
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getDexterity() >= 10;
+            }
+        };
+        staticGameClassList.get(classIndex.MCSKIRMISHER).setRequirements(temp);
+        staticGameClassList.get(classIndex.SKIRMISHER).setRequirements(temp);
+
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getReflex() >= 10;
+            }
+        };
+        staticGameClassList.get(classIndex.MCSCOUT).setRequirements(temp);
+        staticGameClassList.get(classIndex.SCOUT).setRequirements(temp);
+
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getIntelligence() >= 10;
+            }
+        };
+        staticGameClassList.get(classIndex.MCMAGE).setRequirements(temp);
+        staticGameClassList.get(classIndex.MAGE).setRequirements(temp);
+
+
+        temp = new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getMind() >= 10;
+            }
+        };
+        staticGameClassList.get(classIndex.MCACOLYTE).setRequirements(temp);
+        staticGameClassList.get(classIndex.ACOLYTE).setRequirements(temp);
+
+        staticGameClassList.get(classIndex.ARTISAN).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getDexterity() >= 8;
+            }
+        });
+        staticGameClassList.get(classIndex.SCHOLAR).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 15 && parameter.getBaseStats().getIntelligence() >= 8;
+            }
+        });
+
+        /** TIER 3 **/
+
+        /* Main Character*/
+        staticGameClassList.get(classIndex.LORD).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && CurrentGameData.getCurrentGame().guildSize() >= 15 && parameter.getBaseStats().getIntelligence() >= 15 && parameter.getBaseStats().getMind() >= 10;
+            }
+        });
+        staticGameClassList.get(classIndex.CHIEF).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 15 && parameter.getBaseStats().getStrength() >= 15;
+            }
+        });
+        staticGameClassList.get(classIndex.MASTERMIND).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 30;
+            }
+        });
+        staticGameClassList.get(classIndex.SUPREME_COMMANDER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 15 && parameter.getBaseStats().getReflex() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.HERO).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getStrength() >= 15 && parameter.getBaseStats().getMind() >= 10 && parameter.getBaseStats().getReflex() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SLAYER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getStrength() >= 20 && parameter.getBaseStats().getReflex() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SHARPSHOOTER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 15 && parameter.getBaseStats().getDexterity() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.RANGER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 15 && parameter.getBaseStats().getDexterity() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SEEKER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 15 && parameter.getBaseStats().getIntelligence() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ASSASSIN).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 20 && parameter.getBaseStats().getDexterity() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SAGE).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 15 && parameter.getBaseStats().getMind() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.WARLOCK).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 10 && parameter.getBaseStats().getMind() >= 20;
+            }
+        });
+
+        staticGameClassList.get(classIndex.CHAMPION).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getStrength() >= 20 && parameter.getBaseStats().getMind() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SAINT).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getMind() >= 20;
+            }
+        });
+
+        /* Basic Character*/
+        staticGameClassList.get(classIndex.KNIGHT).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getStrength() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.WEAPONMASTER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Blade".toLowerCase()) >= 30; //All swords
+                if (!skillCheck){
+                    skillCheck = parameter.getMasteryLevel("Heavy".toLowerCase()) >= 30; //All axes and maces
+                    if (!skillCheck){
+                        skillCheck = parameter.getMasteryLevel("Pole".toLowerCase()) >= 30; //All polearms
+                    }
+                }
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SNIPER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getDexterity() >= 20;
+            }
+        });
+
+        staticGameClassList.get(classIndex.HUNTER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getDexterity() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ARCHER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getDexterity() >= 10 && parameter.getBaseStats().getStrength() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.EXPLORER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ROGUE).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getDexterity() >= 10 && parameter.getBaseStats().getReflex() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.BOUNTY_HUNTER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getReflex() >= 10 && parameter.getBaseStats().getStrength() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ELEMENTALIST).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = (parameter.getMasteryLevel("Fire".toLowerCase()) +
+                        parameter.getMasteryLevel("Thunder".toLowerCase()) +
+                        parameter.getMasteryLevel("Ice".toLowerCase())
+                )>= 30;
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.WIZARD).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Magic".toLowerCase())>= 20;
+
+                return skillCheck && parameter.getLevel() >= 30 && parameter.getBaseStats().getIntelligence() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.SORCERER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Magic".toLowerCase())>= 20;
+
+                return skillCheck && parameter.getLevel() >= 30 && parameter.getBaseStats().getMind() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.HEXER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Death".toLowerCase())>= 20;
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.PALADIN).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getStrength() >= 10 && parameter.getBaseStats().getMind() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.EXORCIST).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Holy".toLowerCase())>= 20;
+
+                return skillCheck && parameter.getLevel() >= 30 && parameter.getBaseStats().getMind() >= 10;
+            }
+        });
+
+        staticGameClassList.get(classIndex.PRIEST).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                return parameter.getLevel() >= 30 && parameter.getBaseStats().getMind() >= 15;
+            }
+        });
+
+        staticGameClassList.get(classIndex.WEAPONSMITH).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Smithing".toLowerCase()) >= 20; //Metal equipment
+                if (!skillCheck){
+                    skillCheck = parameter.getMasteryLevel("Carpentry".toLowerCase()) >= 20; //Wood equipment
+                }
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ARMORER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Smithing".toLowerCase()) >= 20; //Metal equipment
+                if (!skillCheck){
+                    skillCheck = parameter.getMasteryLevel("Tailoring".toLowerCase()) >= 20; //Cloth/leather equipment
+                }
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ALCHEMIST).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Medicine".toLowerCase())>= 20;
+                if (!skillCheck){
+                    skillCheck = parameter.getMasteryLevel("Explosives".toLowerCase()) >= 20;
+                }
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+
+        staticGameClassList.get(classIndex.ENCHANTER).setRequirements(new Condition<GamePersonCharacter>() {
+            @Override
+            public boolean parseCondition(GamePersonCharacter parameter) {
+                boolean skillCheck = false;
+
+                skillCheck = parameter.getMasteryLevel("Enchanting".toLowerCase())>= 20;
+                if (!skillCheck){
+                    skillCheck = parameter.getMasteryLevel("Writing".toLowerCase()) >= 20;
+                }
+
+                return skillCheck && parameter.getLevel() >= 30;
+            }
+        });
+    }
+
+
 }

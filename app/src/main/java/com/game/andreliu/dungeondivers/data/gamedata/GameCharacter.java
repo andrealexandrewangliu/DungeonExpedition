@@ -43,6 +43,13 @@ public class GameCharacter {
 
     }
 
+    public int getMasteryLevel(String mastery){
+        GameCharacterSkillValues skill = masteries.get(mastery);
+        if (skill != null)
+            return  skill.getLevel();
+        return  0;
+    }
+
     public String getName() {
         return name;
     }

@@ -3,6 +3,7 @@ package com.game.andreliu.dungeondivers.data;
 import com.game.andreliu.dungeondivers.data.gamedata.GameCharacter;
 import com.game.andreliu.dungeondivers.data.gamedata.GameEquipment;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.TreeSet;
 
@@ -18,11 +19,15 @@ public class CurrentGameData {
 
     private TreeSet<GameEquipment> equipment = new TreeSet<GameEquipment>(GameEquipment.comparator());
 
-    private GameCharacter[] guild = new GameCharacter[100]; //Character rooster can only have 100
+    private ArrayList<GameCharacter> guild = new ArrayList(100); //Character rooster can only have 100
     private GameCharacter[] party = new GameCharacter[30];  //Can only take up to 30 party members at maximum
 
+    public int guildSize(){
+        return guild.size();
+    }
+
     public CurrentGameData(){
-        guild[0] = new GameCharacter(); //Main Character
+        guild.add(new GameCharacter()); //Main Character
     }
 
     public static void newGameInstance(){

@@ -1,16 +1,11 @@
 package com.game.andreliu.dungeondivers.data.gamedata.CharacterStats;
 
-import android.telephony.CellSignalStrength;
-
 import com.game.andreliu.dungeondivers.common.Action;
 import com.game.andreliu.dungeondivers.common.Condition;
 import com.game.andreliu.dungeondivers.data.CurrentGameData;
 import com.game.andreliu.dungeondivers.data.gamedata.GamePersonCharacter;
 
-import java.util.ArrayList;
 import java.util.EnumMap;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * Created by xmyx on 18/03/16.
@@ -142,6 +137,7 @@ public class GameCharacterClass {
     public static GameCharacterClass getGameClass(classIndex i){
         return staticGameClassList.get(i);
     }
+
     public static void initClasses(){
         if (staticGameClassList == null) {
             staticGameClassList = new EnumMap<classIndex, GameCharacterClass>(classIndex.class);
@@ -232,6 +228,7 @@ public class GameCharacterClass {
             staticGameClassList.get(classIndex.SCHOLAR).setJobAdvances(new GameCharacterClass[]{staticGameClassList.get(classIndex.ALCHEMIST), staticGameClassList.get(classIndex.ENCHANTER)});
 
             initClassesRequirements();
+            initClassesBonus();
         }
     }
 
@@ -582,7 +579,7 @@ public class GameCharacterClass {
             public boolean parseCondition(GamePersonCharacter parameter) {
                 boolean skillCheck = false;
 
-                skillCheck = parameter.getMasteryLevel("Smithing".toLowerCase()) >= 20; //Metal equipment
+                skillCheck = parameter.getMasteryLevel("Plating".toLowerCase()) >= 20; //Metal equipment
                 if (!skillCheck){
                     skillCheck = parameter.getMasteryLevel("Tailoring".toLowerCase()) >= 20; //Cloth/leather equipment
                 }
@@ -620,5 +617,454 @@ public class GameCharacterClass {
         });
     }
 
+    //TO-DO INCOMPLETE
+    private static void initClassesBonus(){
+        Action<GamePersonCharacter> temp;
 
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                GameCharacterStats stats = object.getBaseStats();
+                stats.setAttack(stats.getAttack() + 0.5f);
+                stats.setDefense(stats.getDefense() + 0.5f);
+            }
+        };
+
+        /** TIER 1 **/
+        staticGameClassList.get(classIndex.TACTICIAN).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                CurrentGameData currentGameData = CurrentGameData.getCurrentGame();
+                currentGameData.setPartyLimit(currentGameData.getPartyLimit() + 1);
+                currentGameData.setReserveLimit(currentGameData.getReserveLimit() + 1);
+            }
+        });
+
+        staticGameClassList.get(classIndex.MCADVENTURER).setBonus(temp);
+        staticGameClassList.get(classIndex.ADVENTURER).setBonus(temp);
+
+        staticGameClassList.get(classIndex.APPRENTICE).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("gatherer");
+            }
+        });
+
+        /** TIER 2 **/
+        staticGameClassList.get(classIndex.LEADER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("charisma");
+            }
+        });
+        staticGameClassList.get(classIndex.STRATEGIST).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("rapid order");
+            }
+        });
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("parrying");
+                object.addMasteryExperience("blade", 20);
+                object.addMasteryExperience("heavy", 20);
+                object.addMasteryExperience("pole", 20);
+            }
+        };
+        staticGameClassList.get(classIndex.MCWARRIOR).setBonus(temp);
+        staticGameClassList.get(classIndex.WARRIOR).setBonus(temp);
+
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.addMasteryExperience("bow", 20);
+                object.addMasteryExperience("throw", 20);
+            }
+        };
+        staticGameClassList.get(classIndex.MCSKIRMISHER).setBonus(temp);
+        staticGameClassList.get(classIndex.SKIRMISHER).setBonus(temp);
+
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("searching");
+                object.addMasteryExperience("searching", 20);
+                object.addMasteryExperience("hiding", 20);
+            }
+        };
+        staticGameClassList.get(classIndex.MCSCOUT).setBonus(temp);
+        staticGameClassList.get(classIndex.SCOUT).setBonus(temp);
+
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.addMasteryExperience("fire", 20);
+                object.addMasteryExperience("thunder", 20);
+                object.addMasteryExperience("ice", 20);
+                object.addMasteryExperience("magic", 20);
+            }
+        };
+        staticGameClassList.get(classIndex.MCMAGE).setBonus(temp);
+        staticGameClassList.get(classIndex.MAGE).setBonus(temp);
+
+
+        temp = new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("holy");
+                object.addMasteryExperience("life", 20);
+                object.addMasteryExperience("holy", 20);
+            }
+        };
+        staticGameClassList.get(classIndex.MCACOLYTE).setBonus(temp);
+        staticGameClassList.get(classIndex.ACOLYTE).setBonus(temp);
+
+        staticGameClassList.get(classIndex.ARTISAN).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("crafting");
+                object.addMasteryExperience("Smithing", 20);
+                object.addMasteryExperience("Carpentry", 20);
+                object.addMasteryExperience("Plating", 20);
+                object.addMasteryExperience("Tailoring", 20);
+            }
+        });
+
+        staticGameClassList.get(classIndex.SCHOLAR).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("alchemy");
+                object.addMasteryExperience("Medicine", 20);
+                object.addMasteryExperience("Explosives", 20);
+                object.addMasteryExperience("Enchanting", 20);
+                object.addMasteryExperience("Writing", 20);
+            }
+        });
+
+        /** TIER 3 **/
+
+        /* Main Character*/
+        staticGameClassList.get(classIndex.LORD).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("charisma");
+            }
+        });
+        staticGameClassList.get(classIndex.CHIEF).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("intimidation");
+            }
+        });
+        staticGameClassList.get(classIndex.MASTERMIND).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.addTrait("prediction");
+            }
+        });
+        staticGameClassList.get(classIndex.SUPREME_COMMANDER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.addTrait("counter order");
+            }
+        });
+
+        staticGameClassList.get(classIndex.HERO).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.addTrait("charisma");
+                object.upgradeTrait("parrying");
+                object.upgradeTrait("casting");
+                object.upgradeTrait("holy");
+                object.upgradeTrait("extra move");
+                GameCharacterStats stats = object.getBaseStats();
+                stats.setAttack(stats.getAttack() + 1.0f);
+                stats.setDefense(stats.getDefense() + 2.0f);
+            }
+        });
+
+        staticGameClassList.get(classIndex.SLAYER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("parrying");
+                object.upgradeTrait("slayer");
+                object.upgradeTrait("extra move");
+                object.upgradeTrait("blade");
+                object.upgradeTrait("heavy");
+                object.upgradeTrait("pole");
+                GameCharacterStats stats = object.getBaseStats();
+                stats.setAttack(stats.getAttack() + 3.0f);
+            }
+        });
+
+        staticGameClassList.get(classIndex.SHARPSHOOTER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("ranged damage");
+                object.upgradeTrait("ranged damage");
+                object.upgradeTrait("ranged damage");
+                object.upgradeTrait("ranged damage");
+                object.upgradeTrait("first shot");
+            }
+        });
+
+        staticGameClassList.get(classIndex.RANGER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("slayer");
+                object.upgradeTrait("ranged damage");
+                object.upgradeTrait("first shot");
+                object.upgradeTrait("hiding");
+                object.upgradeTrait("extra move");
+            }
+        });
+
+        staticGameClassList.get(classIndex.SEEKER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("searching");
+                object.upgradeTrait("searching");
+                object.upgradeTrait("hiding");
+                object.upgradeTrait("gatherer");
+                object.upgradeTrait("evasion");
+                object.upgradeTrait("extra move");
+                object.upgradeTrait("extra move");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ASSASSIN).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("searching");
+                object.upgradeTrait("hiding");
+                object.upgradeTrait("flank attack");
+                object.upgradeTrait("evasion");
+                object.upgradeTrait("evasion");
+                object.upgradeTrait("first strike");
+                object.upgradeTrait("extra move");
+            }
+        });
+
+        staticGameClassList.get(classIndex.SAGE).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("casting");
+                object.upgradeTrait("magic");
+                object.upgradeTrait("fire");
+                object.upgradeTrait("ice");
+                object.upgradeTrait("thunder");
+                object.upgradeTrait("extra move");
+                object.upgradeTrait("strengthen");
+            }
+        });
+
+        staticGameClassList.get(classIndex.WARLOCK).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("magic");
+                object.upgradeTrait("magic");
+                object.upgradeTrait("necro");
+                object.upgradeTrait("necro");
+                object.upgradeTrait("weaken");
+                object.upgradeTrait("weaken");
+            }
+        });
+
+        staticGameClassList.get(classIndex.CHAMPION).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                GameCharacterStats stats = object.getBaseStats();
+                object.upgradeTrait("holy");
+                object.upgradeTrait("life");
+                object.upgradeTrait("parrying");
+                object.upgradeTrait("parrying");
+                object.upgradeTrait("parrying");
+                stats.setDefense(stats.getDefense() + 3.0f);
+            }
+        });
+
+        staticGameClassList.get(classIndex.SAINT).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("holy");
+                object.upgradeTrait("holy");
+                object.upgradeTrait("life");
+                object.upgradeTrait("life");
+                object.upgradeTrait("shield");
+                object.upgradeTrait("shield");
+            }
+        });
+
+        /* Basic Character*/
+        staticGameClassList.get(classIndex.KNIGHT).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("parrying");
+                GameCharacterStats stats = object.getBaseStats();
+                stats.setAttack(stats.getAttack() + 1.0f);
+                stats.setDefense(stats.getDefense() + 1.0f);
+            }
+        });
+
+        staticGameClassList.get(classIndex.WEAPONMASTER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("parrying");
+                //TO-DO INCOMPLETE
+                //add weapon of choice damage
+                GameCharacterStats stats = object.getBaseStats();
+                stats.setAttack(stats.getAttack() + 1.0f);
+            }
+        });
+
+        staticGameClassList.get(classIndex.SNIPER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("ranged damage");
+            }
+        });
+
+        staticGameClassList.get(classIndex.HUNTER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("slayer");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ARCHER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("accurate");
+                object.upgradeTrait("first shot");
+            }
+        });
+
+        staticGameClassList.get(classIndex.EXPLORER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("searching");
+                object.upgradeTrait("searching");
+                object.upgradeTrait("gatherer");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ROGUE).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("hiding");
+                object.upgradeTrait("evasion");
+                object.upgradeTrait("flank attack");
+            }
+        });
+
+        staticGameClassList.get(classIndex.BOUNTY_HUNTER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("evasion");
+                object.upgradeTrait("killer");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ELEMENTALIST).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("fire");
+                object.upgradeTrait("ice");
+                object.upgradeTrait("thunder");
+            }
+        });
+
+        staticGameClassList.get(classIndex.WIZARD).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("strengthen");
+            }
+        });
+
+        staticGameClassList.get(classIndex.SORCERER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("magic");
+            }
+        });
+
+        staticGameClassList.get(classIndex.HEXER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("necro");
+                object.upgradeTrait("weaken");
+            }
+        });
+
+        staticGameClassList.get(classIndex.PALADIN).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("holy");
+                object.upgradeTrait("parrying");
+                object.upgradeTrait("parrying");
+            }
+        });
+
+        staticGameClassList.get(classIndex.EXORCIST).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("casting");
+                object.upgradeTrait("holy");
+            }
+        });
+
+        staticGameClassList.get(classIndex.PRIEST).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("shield");
+                object.upgradeTrait("life");
+            }
+        });
+
+        staticGameClassList.get(classIndex.WEAPONSMITH).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("weaponsmith");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ARMORER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("armoring");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ALCHEMIST).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("alchemy");
+            }
+        });
+
+        staticGameClassList.get(classIndex.ENCHANTER).setBonus(new Action<GamePersonCharacter>() {
+            @Override
+            public void action(GamePersonCharacter object) {
+                object.upgradeTrait("enchanting");
+            }
+        });
+    }
 }

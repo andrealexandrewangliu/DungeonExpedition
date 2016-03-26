@@ -4,8 +4,8 @@ package com.game.andreliu.dungeondivers.data.gamedata.CharacterStats;
  * Created by xmyx on 15/03/16.
  */
 public class GameCharacterSkillValues {
-    private int level;
-    private int experience;
+    private int level = 0;
+    private int experience = 0;
 
     public int requireExp(){
         if (level >= 100)

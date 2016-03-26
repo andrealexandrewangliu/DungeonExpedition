@@ -13,7 +13,13 @@ import java.util.TreeSet;
 public class CurrentGameData {
     private static CurrentGameData currentGame;
 
-    private byte difficulty = 0; //0 = EASY, 1 = NORMAL, 2 = HARD
+    public enum difficultyType{
+        EASY,
+        NORMAL,
+        HARD
+    }
+
+    private difficultyType difficulty = difficultyType.EASY; //0 = EASY, 1 = NORMAL, 2 = HARD
     private int money = 0;          //Total gold
     private String guildName = "";
 
@@ -21,6 +27,8 @@ public class CurrentGameData {
 
     private ArrayList<GameCharacter> guild = new ArrayList(100); //Character rooster can only have 100
     private GameCharacter[] party = new GameCharacter[30];  //Can only take up to 30 party members at maximum
+    private int partyLimit = 6;
+    private int reserveLimit = 12;
 
     public int guildSize(){
         return guild.size();
@@ -44,6 +52,38 @@ public class CurrentGameData {
 
     public void setGuildName(String guildName) {
         this.guildName = guildName;
+    }
+
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public difficultyType getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(difficultyType difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public int getPartyLimit() {
+        return partyLimit;
+    }
+
+    public void setPartyLimit(int partyLimit) {
+        this.partyLimit = partyLimit;
+    }
+
+    public int getReserveLimit() {
+        return reserveLimit;
+    }
+
+    public void setReserveLimit(int reserveLimit) {
+        this.reserveLimit = reserveLimit;
     }
 
     public static boolean isInit(){
@@ -77,16 +117,16 @@ public class CurrentGameData {
     public static boolean isEasy(){
         if (!isInit())
             return false;
-        return currentGame.difficulty == 0;
+        return currentGame.difficulty == difficultyType.EASY;
     }
     public static boolean isNormal(){
         if (!isInit())
             return false;
-        return currentGame.difficulty == 1;
+        return currentGame.difficulty == difficultyType.NORMAL;
     }
     public static boolean isHard(){
         if (!isInit())
             return false;
-        return currentGame.difficulty == 2;
+        return currentGame.difficulty == difficultyType.HARD;
     }
 }

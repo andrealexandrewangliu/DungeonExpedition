@@ -20,7 +20,7 @@ public class GameCharacter {
     private String name;
     private Map<String, GameCharacterSkillValues> masteries = new TreeMap<String, GameCharacterSkillValues>();
     private Map<String, GameCharacterStatusEffect> statusEffects = new TreeMap<String, GameCharacterStatusEffect>();
-    private Set<String> traits = new TreeSet<String>();
+    private Map<String, Integer> traits = new TreeMap<String, Integer>();
     private GameCharacterAIBehavior behavior = null;
     private GameCharacterClass characterClass = GameCharacterClass.getGameClass(GameCharacterClass.classIndex.PREDATOR);
     private int level;
@@ -43,11 +43,47 @@ public class GameCharacter {
 
     }
 
+    public void addTrait(String trait){
+        traits.put(trait.toLowerCase(), 1);
+    }
+
+    public void upgradeTrait(String trait){
+        Integer traitLevel = traits.get(trait);
+        if (traitLevel != null){
+            traits.put(trait, traitLevel + 1);
+        }
+        else {
+            traits.put(trait, 1);
+        }
+    }
+
+    public int getTraitLevel(String trait){
+        Integer level = traits.get(trait.toLowerCase());
+        if (level != null){
+            return  level;
+        }
+        return 0;
+    }
+
+    public boolean hasTrait(String trait){
+        return traits.keySet().contains(trait.toLowerCase());
+    }
+
     public int getMasteryLevel(String mastery){
         GameCharacterSkillValues skill = masteries.get(mastery);
         if (skill != null)
             return  skill.getLevel();
         return  0;
+    }
+
+    public void addMasteryExperience(String mastery, int exp){
+        GameCharacterSkillValues skill = masteries.get(mastery);
+        if (skill == null) {
+            skill = new GameCharacterSkillValues();
+            masteries.put(mastery,skill);
+        }
+
+        skill.addExperience(exp);
     }
 
     public String getName() {

@@ -1303,10 +1303,10 @@ containing a value of this type.
     }
     public static final class id {
         public static final int Buttons=0x7f0c0047;
-        public static final int Easy=0x7f0c0049;
-        public static final int Hard=0x7f0c0051;
+        public static final int Easy=0x7f0c004a;
+        public static final int Hard=0x7f0c0052;
         public static final int Items=0x7f0c0045;
-        public static final int Normal=0x7f0c004d;
+        public static final int Normal=0x7f0c004e;
         public static final int action_bar=0x7f0c0031;
         public static final int action_bar_activity_content=0x7f0c0000;
         public static final int action_bar_container=0x7f0c0030;
@@ -1320,22 +1320,25 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f0c002e;
         public static final int action_mode_bar_stub=0x7f0c002d;
         public static final int action_mode_close_button=0x7f0c0020;
-        public static final int action_settings=0x7f0c0055;
+        public static final int action_settings=0x7f0c0063;
         public static final int activity_chooser_view_content=0x7f0c0021;
         public static final int always=0x7f0c0016;
         public static final int beginning=0x7f0c0013;
-        public static final int button=0x7f0c0048;
+        public static final int buttonNext=0x7f0c0049;
+        public static final int buttonPrev=0x7f0c0048;
         public static final int checkbox=0x7f0c0029;
         public static final int collapseActionView=0x7f0c0017;
         public static final int container=0x7f0c0043;
         public static final int decor_content_parent=0x7f0c002f;
         public static final int default_activity_button=0x7f0c0024;
-        public static final int descriptionEasyLabel=0x7f0c004b;
-        public static final int descriptionHardLabel=0x7f0c0053;
-        public static final int descriptionNormalLabel=0x7f0c004f;
+        public static final int descriptionEasyLabel=0x7f0c004c;
+        public static final int descriptionHardLabel=0x7f0c0054;
+        public static final int descriptionNormalLabel=0x7f0c0050;
         public static final int dialog=0x7f0c001b;
+        public static final int dificultyDetails=0x7f0c0056;
         public static final int disableHome=0x7f0c000c;
         public static final int dropdown=0x7f0c001c;
+        public static final int editName=0x7f0c0058;
         public static final int edit_query=0x7f0c0033;
         public static final int end=0x7f0c0014;
         public static final int expand_activities_button=0x7f0c0022;
@@ -1356,9 +1359,11 @@ containing a value of this type.
         public static final int progress_circular=0x7f0c0005;
         public static final int progress_horizontal=0x7f0c0006;
         public static final int radio=0x7f0c002b;
-        public static final int radioEasy=0x7f0c004c;
-        public static final int radioHard=0x7f0c0054;
-        public static final int radioNormal=0x7f0c0050;
+        public static final int radioEasy=0x7f0c004d;
+        public static final int radioHard=0x7f0c0055;
+        public static final int radioMan=0x7f0c005a;
+        public static final int radioNormal=0x7f0c0051;
+        public static final int radioWoman=0x7f0c005b;
         public static final int search_badge=0x7f0c0035;
         public static final int search_bar=0x7f0c0034;
         public static final int search_button=0x7f0c0036;
@@ -1377,13 +1382,22 @@ containing a value of this type.
         public static final int submit_area=0x7f0c003c;
         public static final int tabMode=0x7f0c000b;
         public static final int textView=0x7f0c0044;
+        public static final int textView10=0x7f0c005f;
+        public static final int textView11=0x7f0c0060;
+        public static final int textView12=0x7f0c0061;
+        public static final int textView2=0x7f0c0057;
         public static final int textView3=0x7f0c003f;
         public static final int textView4=0x7f0c0046;
+        public static final int textView5=0x7f0c0059;
+        public static final int textView6=0x7f0c0062;
+        public static final int textView7=0x7f0c005c;
+        public static final int textView8=0x7f0c005d;
+        public static final int textView9=0x7f0c005e;
         public static final int title=0x7f0c0027;
-        public static final int titleEasyLabel=0x7f0c004a;
-        public static final int titleHardLabel=0x7f0c0052;
+        public static final int titleEasyLabel=0x7f0c004b;
+        public static final int titleHardLabel=0x7f0c0053;
         public static final int titleLabel=0x7f0c0040;
-        public static final int titleNormalLabel=0x7f0c004e;
+        public static final int titleNormalLabel=0x7f0c004f;
         public static final int up=0x7f0c0008;
         public static final int useLogo=0x7f0c0012;
         public static final int withText=0x7f0c001a;
@@ -1421,7 +1435,8 @@ containing a value of this type.
         public static final int activity_new_game=0x7f040019;
         public static final int fragment_new_game_background=0x7f04001a;
         public static final int fragment_new_game_difficulty=0x7f04001b;
-        public static final int support_simple_spinner_dropdown_item=0x7f04001c;
+        public static final int fragment_new_game_indentity=0x7f04001c;
+        public static final int support_simple_spinner_dropdown_item=0x7f04001d;
     }
     public static final class menu {
         public static final int menu_main=0x7f0d0000;
@@ -1450,11 +1465,25 @@ containing a value of this type.
         public static final int action_settings=0x7f060010;
         public static final int app_name=0x7f060011;
         public static final int gameTitle=0x7f060012;
-        public static final int loadGameLabel=0x7f060013;
-        public static final int newGameLabel=0x7f060014;
-        public static final int section_format=0x7f060015;
-        public static final int title_activity_load_save=0x7f060016;
-        public static final int title_activity_new_game=0x7f060017;
+        public static final int label12=0x7f060013;
+        public static final int label6=0x7f060014;
+        public static final int labelClassForm=0x7f060015;
+        public static final int labelExpeditionSizeForm=0x7f060016;
+        public static final int labelGenderForm=0x7f060017;
+        public static final int labelIdentity=0x7f060018;
+        public static final int labelIdentityNoticePartyGuild=0x7f060019;
+        public static final int labelMan=0x7f06001a;
+        public static final int labelNameForm=0x7f06001b;
+        public static final int labelNext=0x7f06001c;
+        public static final int labelNovice=0x7f06001d;
+        public static final int labelPartySizeForm=0x7f06001e;
+        public static final int labelPrev=0x7f06001f;
+        public static final int labelWoman=0x7f060020;
+        public static final int loadGameLabel=0x7f060021;
+        public static final int newGameLabel=0x7f060022;
+        public static final int section_format=0x7f060023;
+        public static final int title_activity_load_save=0x7f060024;
+        public static final int title_activity_new_game=0x7f060025;
     }
     public static final class style {
         /**  Customize your theme here. 

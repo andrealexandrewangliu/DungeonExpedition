@@ -1,4 +1,4 @@
-package com.game.andreliu.dungeondivers.init;
+package com.game.andreliu.dungeondivers.layout.init;
 
 
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 
 import com.game.andreliu.dungeondivers.R;
 
@@ -15,15 +14,9 @@ import com.game.andreliu.dungeondivers.R;
  * Created by xmyx on 14/03/16.
  */
 public class NewGameBackgroundFragment extends Fragment implements OnClickListener{
-    private  NewGameActivity parent;
-    public static NewGameBackgroundFragment createInstance(NewGameActivity parent){
+    public static NewGameBackgroundFragment createInstance(){
         NewGameBackgroundFragment instance = new NewGameBackgroundFragment();
-        instance.setParent(parent);
         return instance;
-    }
-
-    protected  void setParent(NewGameActivity parent){
-        this.parent = parent;
     }
 
     @Override
@@ -31,10 +24,18 @@ public class NewGameBackgroundFragment extends Fragment implements OnClickListen
                              Bundle savedInstanceState) {
 
         View v = inflater.inflate(R.layout.fragment_new_game_background, container, false);
+
+        v.findViewById(R.id.buttonNext).setOnClickListener(this);
+        v.findViewById(R.id.buttonPrev).setOnClickListener(this);
         return v;
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.buttonNext:
+            case R.id.buttonPrev:
+                NewGameActivity.getCurrentInstance().onClick(v.getId());
+        }
     }
 }

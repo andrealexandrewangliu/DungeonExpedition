@@ -1,4 +1,4 @@
-package com.game.andreliu.dungeondivers;
+package com.game.andreliu.dungeondivers.layout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
-import android.view.WindowManager;
 
+import com.game.andreliu.dungeondivers.R;
 import com.game.andreliu.dungeondivers.data.CurrentGameData;
 import com.game.andreliu.dungeondivers.data.gamedata.CharacterStats.GameCharacterClass;
-import com.game.andreliu.dungeondivers.init.LoadSaveActivity;
-import com.game.andreliu.dungeondivers.init.NewGameActivity;
+import com.game.andreliu.dungeondivers.layout.init.LoadSaveActivity;
+import com.game.andreliu.dungeondivers.layout.init.NewGameActivity;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -31,6 +30,7 @@ public class MainActivity extends ActionBarActivity {
     private OnClickListener onNewGame = new OnClickListener() {
         @Override
         public void onClick(final View v) {
+            CurrentGameData.newGameInstance();
             Intent i = new Intent(MainActivity.this, NewGameActivity.class);
             startActivity(i);
         }

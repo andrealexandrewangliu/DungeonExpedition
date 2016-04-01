@@ -1,4 +1,4 @@
-package com.game.andreliu.dungeondivers.init;
+package com.game.andreliu.dungeondivers.layout.init;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;

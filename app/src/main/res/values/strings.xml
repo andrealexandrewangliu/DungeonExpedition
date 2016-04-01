@@ -7,4 +7,18 @@
     <string name="title_activity_new_game">NewGameActivity</string>
     <string name="title_activity_load_save">LoadSaveActivity</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="labelNameForm">Name:</string>
+    <string name="labelIdentity">Identity</string>
+    <string name="labelMan">Man</string>
+    <string name="labelWoman">Woman</string>
+    <string name="labelGenderForm">Gender:</string>
+    <string name="labelClassForm">Class:</string>
+    <string name="labelNovice">Novice</string>
+    <string name="labelPartySizeForm">Party size:</string>
+    <string name="labelExpeditionSizeForm">Expedition Size:</string>
+    <string name="label6">6</string>
+    <string name="label12">12</string>
+    <string name="labelIdentityNoticePartyGuild">Guild name and party members are only decided ingame.\nParty Size is the amount of active people in combat (leader included) and Expedition Size the amount of people included in each expedition.</string>
+    <string name="labelNext">Next</string>
+    <string name="labelPrev">Prev</string>
 </resources>

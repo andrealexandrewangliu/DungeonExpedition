@@ -6,7 +6,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.game.andreliu.dungeondivers.init.NewGameActivity$PlaceholderFragment">
+    tools:context=".layout.init.NewGameActivity$PlaceholderFragment">
 
     <LinearLayout android:orientation="vertical" android:layout_width="match_parent"
         android:layout_height="match_parent" android:gravity="center|top">
@@ -27,13 +27,16 @@
                     android:gravity="center" />
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Full heal upon returning to town, no game overs. Good for first timers." android:id="@+id/descriptionEasyLabel"
+                    android:text="A vacation rather than an adventure." android:id="@+id/descriptionEasyLabel"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:gravity="center" />
                 <RadioButton android:layout_width="wrap_content"
                     android:layout_height="fill_parent" android:id="@+id/radioEasy" android:checked="true"
-                    android:gravity="bottom" />
+                    android:gravity="bottom"
+                    android:enabled="true"
+                    android:clickable="true"
+                    android:onClick="onClick" />
             </LinearLayout>
             <LinearLayout android:orientation="vertical" android:layout_width="180dp"
                 android:layout_height="fill_parent" android:id="@+id/Normal" android:clickable="true"
@@ -45,12 +48,15 @@
                     android:gravity="center" />
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Party members need to be ressurrected upon death. For your average RPG player." android:id="@+id/descriptionNormalLabel"
+                    android:text="A new beginning" android:id="@+id/descriptionNormalLabel"
                     android:paddingLeft="20dp" android:paddingRight="20dp"
                     android:gravity="center" />
                 <RadioButton android:layout_width="wrap_content"
                     android:layout_height="fill_parent" android:id="@+id/radioNormal"
-                    android:checked="false" android:gravity="bottom" />
+                    android:checked="false" android:gravity="bottom"
+                    android:enabled="true"
+                    android:clickable="true"
+                    android:onClick="onClick" />
             </LinearLayout>
             <LinearLayout android:orientation="vertical" android:layout_width="180dp"
                 android:layout_height="fill_parent" android:id="@+id/Hard" android:clickable="true"
@@ -63,21 +69,34 @@
                     android:gravity="center" />
                 <TextView android:layout_width="fill_parent" android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="Permanent party member death. Immediate game over if hero dies. Additional bad events."
+                    android:text="Nightmare within the deep"
                     android:id="@+id/descriptionHardLabel" android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:gravity="center" />
                 <RadioButton android:layout_width="wrap_content" android:layout_height="fill_parent"
-                    android:id="@+id/radioHard" android:checked="false" android:gravity="bottom" />
+                    android:id="@+id/radioHard" android:checked="false" android:gravity="bottom"
+                    android:enabled="true"
+                    android:clickable="true"
+                    android:onClick="onClick" />
             </LinearLayout>
+
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:id="@+id/dificultyDetails" />
+
         <LinearLayout android:orientation="vertical" android:layout_width="fill_parent"
             android:layout_height="fill_parent" android:gravity="bottom">
             <LinearLayout android:orientation="horizontal" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:layout_gravity="center_horizontal"
                 android:id="@+id/Buttons" android:gravity="center">
                 <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:text="Next" android:id="@+id/button" />
+                    android:text="@string/labelNext" android:id="@+id/buttonNext"
+                    android:onClick="onClick"
+                    android:clickable="true" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
